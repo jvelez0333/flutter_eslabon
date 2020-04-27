@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_eslabon/models/AutenticateResponse.dart';
-import 'package:flutter_eslabon/models/Response.dart';
 import 'package:flutter_eslabon/models/TokenRequest.dart';
 import 'package:flutter_eslabon/services/ApiService.dart';
 import 'package:shared_preferences/shared_preferences.dart';
