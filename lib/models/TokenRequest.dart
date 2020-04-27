@@ -14,4 +14,12 @@ class TokenRequest {
 
     //devuelve el objeto en string..
     String get jsonString=>json.encode(this.toJson());
+
+    factory TokenRequest.fromString(String str)=> TokenRequest.fromJson(json.decode(str));
+
+    factory TokenRequest.fromJson(Map<String, dynamic> json) => TokenRequest(
+ json["status"],
+ json["password"]
+ 
+    );
 }
