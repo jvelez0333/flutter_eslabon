@@ -40,11 +40,11 @@ class ApiService  {
     final String urlBase=PaginaConst.apiURL;
     final String urlFull='$urlBase$servicePrefix$controller';
 
-
-
-   final resp = await http.get(Uri.encodeFull('https://eslabon.azurewebsites.net/api/test/perfil/2')  );
     if(1==1)
      return ResponseString(status: false, num: 1,msn:urlFull,result: null);
+
+   final resp = await http.get(Uri.encodeFull('https://www.google.com')  );
+
      
        if(resp.statusCode == 200){
      final strRespuesta= ResponseString.fromString(resp.body);

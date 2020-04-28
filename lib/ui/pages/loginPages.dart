@@ -1,3 +1,4 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter_eslabon/helpers/login_state.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -57,7 +58,12 @@ class _LoginPageState extends State<LoginPage>  {
                 } else {
    
 
-                  return child;
+                  return Column(
+                    children: <Widget>[
+                      Text(value.msnInfo), 
+                      child,
+                    ],
+                  );
                 }
               },
               child: formularioLoginMdo(context, _msnInfoLogin),
@@ -111,8 +117,8 @@ class _LoginPageState extends State<LoginPage>  {
                 MaterialButton(
                   child: Text('Entrar'),
                   onPressed: () {
-                        
-                        Provider.of<LoginState>(context).login(this._controllerUsername.text,this._controllerPassword.text);
+                        this._checkInternetConnectivity();
+                        //Provider.of<LoginState>(context).login(this._controllerUsername.text,this._controllerPassword.text);
                 }),
               ]
             )),
@@ -129,7 +135,44 @@ class _LoginPageState extends State<LoginPage>  {
         ),
       );
   }
-
+    _checkInternetConnectivity() async {
+    var result = await Connectivity().checkConnectivity();
+    if (result == ConnectivityResult.none) {
+      _showDialog(
+        'No internet', 
+        "You're not connected to a network"
+      );
+    } else if (result == ConnectivityResult.mobile) {
+      _showDialog(
+        'Internet access',
+        "You're connected over mobile data"
+      );
+    } else if (result == ConnectivityResult.wifi) {
+      _showDialog(
+        'Internet access',
+        "You're connected over wifi"
+      );
+    }
+  }
+ _showDialog(title, text) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(text),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Ok'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      }
+    );
+  }
   @override
   void dispose() {
     _controllerUsername.dispose();
