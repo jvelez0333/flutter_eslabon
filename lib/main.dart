@@ -17,11 +17,14 @@ class MyApp extends StatelessWidget {
           create: (BuildContext context) => LoginState(),
         ),
         ProxyProvider<LoginState, PostRepository>(
-          update: (_, LoginState value, __) {
-            if (value.isLoggedIn()) {
+          update: (_, LoginState value, __)  {
+
+            if (value.isLoggedIn) {
               return PostRepository(value.currentUser().tokenResponse.token);
             }
+
             return null;
+            
           },
         )
       ],
@@ -48,7 +51,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (BuildContext context) {
             var state = Provider.of<LoginState>(context);
-            if (state.isLoggedIn()) {
+            if (state.isLoggedIn) {
               return HomePage();
             } else {
               return LoginPage();

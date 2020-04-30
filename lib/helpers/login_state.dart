@@ -21,7 +21,7 @@ class LoginState with ChangeNotifier {
     loginState();
   }
 
-  bool isLoggedIn() => _loggedIn;
+  get isLoggedIn => _loggedIn;
 
   bool isLoading() => _loading;
 
@@ -87,19 +87,22 @@ class LoginState with ChangeNotifier {
 
     _prefs = await SharedPreferences.getInstance();
       
-      final remeberMe         =   _prefs.getBool(AutenticationResponseConst.remember);
+      //final remeberMe       =   _prefs.getBool(AutenticationResponseConst.remember);
       final userName          =   _prefs.getString(AutenticationResponseConst.userName);
       final token             =   _prefs.getString(AutenticationResponseConst.token);  
       final menuPrincipalStr  =   _prefs.getString(AutenticationResponseConst.menuPrincipal);
       
-      if(userName!=null && token!=null && menuPrincipalStr!=null && remeberMe!=null){
+      if(userName!=null && token!=null && menuPrincipalStr!=null){
 
-          this._user.userMin.userName   =userName;
+         final userMin   = UserMin(userName: userName);
 
-          var lista =this._user.getListByString(menuPrincipalStr);
-          this._user.menuPrincipal.clear();
+          this._user= ResultAutenticateResponse(
+                              userMin       : userMin, 
+                              menuPrincipal : List<MenuPrincipal>(),
+                              tokenResponse: TokenResponse(token: token)
+                              );
 
-          this._user.menuPrincipal=lista;
+          this._user.setListMenuByString =menuPrincipalStr;
         
       }else{
         this._user=null;

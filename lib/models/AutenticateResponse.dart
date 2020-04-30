@@ -68,8 +68,8 @@ class ResultAutenticateResponse {
         "suscripciones": List<dynamic>.from(suscripciones.map((x) => x.toJson())),
     };
 
-        //convirte un string en una lista de menu
-    List<MenuPrincipal> getListByString(String str) => List<MenuPrincipal>.from(json.decode(str).map((x) => MenuPrincipal.fromJson(x)));
+    //asigna el menu principal mendiante un usuario.
+    set setListMenuByString(String str) => this.menuPrincipal= List<MenuPrincipal>.from(json.decode(str).map((x) => MenuPrincipal.fromJson(x)));
 
 }
 

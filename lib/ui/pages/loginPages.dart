@@ -30,16 +30,11 @@ class _LoginPageState extends State<LoginPage>  {
   @override
   void initState() {
       super.initState();
-
-      _controllerUsername = TextEditingController(text: widget?.username ?? "user2");
-      _controllerPassword = TextEditingController(text: "123456");
-    
+      _controllerUsername = TextEditingController(text: widget?.username ?? "user1");
+      _controllerPassword = TextEditingController(text: "123456");    
   } 
-
-
   @override
-  Widget build(BuildContext context) {
-    
+  Widget build(BuildContext context) {    
     return Scaffold(
       key: _scaffoldKey,
       body: SafeArea(
@@ -54,34 +49,36 @@ class _LoginPageState extends State<LoginPage>  {
                       Text(value.msnInfo)
                     ],),
                   );
-                } else {
-
-                if(value.msnInfo!='')
-                {
-                                return AlertDialog(
-                                        title: Text('Notificación'),
-                                        content: SingleChildScrollView(
-                                          child: ListBody(
-                                            children: <Widget>[
-                                              Text(value.msnInfo),
-                                            ],
-                                          ),
-                                        ),
-                                        actions: <Widget>[
-                                          FlatButton(
-                                            child: Text('Ok'),
-                                            onPressed: () {
-                                            value.msnInfo='';
-                                            },
-                                          ),
+                } else 
+                  {
+                    if(value.msnInfo!='')
+                      {
+                          return AlertDialog(
+                                    backgroundColor: Colors.transparent,
+                                    elevation: 0,
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                                    title: Text('Notificación'),
+                                    content: SingleChildScrollView(
+                                      child: ListBody(
+                                        children: <Widget>[
+                                          Text(value.msnInfo),
                                         ],
-                                      );
-                }
-                else{
-                  return child;
-                }                 
-          
-                }
+                                      ),
+                                    ),
+                                    actions: <Widget>[
+                                      FlatButton(
+                                        child: Text('Ok'),
+                                        onPressed: () {
+                                        value.msnInfo='';
+                                        },
+                                      ),
+                                    ],
+                                  ); 
+                    }
+                    else{
+                      return child;
+                    }                           
+                  }
               },
               child: formularioLoginMdo(context),
             ),            
