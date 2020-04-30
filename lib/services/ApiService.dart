@@ -73,7 +73,7 @@ Future<String>  postByTokenAsync<T>(String servicePrefix,String controller,T req
    return resp.body;
   }  
 
-  bool internetOk(){
+  Future<bool> internetOk() async{
     var connectivityResult = await (Connectivity().checkConnectivity());
     return true;
   }
