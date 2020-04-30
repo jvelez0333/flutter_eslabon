@@ -38,6 +38,18 @@ class ApiService  {
   //Realiza una peticion post y trae el valor pasado como parametro generico...
    Future<ResponseString> postAsync(String servicePrefix,String controller,String jsonData) async {
 
+   final hayInternet= await Connectivity().checkConnectivity();
+   
+   if(hayInternet==ConnectivityResult.none){
+     final msnReturns='El dipositivo no tiene conexión a internet';
+
+        return ResponseString(
+        status  :false,
+        num     :0,
+        msn     :msnReturns,
+        result  :msnReturns);
+   }
+
    final resp = await http.post('${PaginaConst.apiURL}$servicePrefix/$controller',
     headers: {"content-type": "application/json"},
     body: jsonData 
@@ -56,11 +68,9 @@ class ApiService  {
         msn     :resp.body,
         result  :'');
   }
-
- 
-    //Realiza una peticion post y trae el valor pasado como parametro generico y suministrando token...
+//Realiza una peticion post y trae el valor pasado como parametro generico y suministrando token...
 Future<String>  postByTokenAsync<T>(String servicePrefix,String controller,T requestData,String tokenType,String accessToken) async{
- 
+   
    final resp = await http.post('${PaginaConst.apiURL}/ $servicePrefix/$controller',
    body:requestData,
            headers: {
@@ -73,8 +83,4 @@ Future<String>  postByTokenAsync<T>(String servicePrefix,String controller,T req
    return resp.body;
   }  
 
-  Future<bool> internetOk() async{
-    var connectivityResult = await (Connectivity().checkConnectivity());
-    return true;
-  }
 }

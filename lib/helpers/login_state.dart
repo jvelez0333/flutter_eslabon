@@ -5,7 +5,6 @@ import 'package:flutter_eslabon/models/TokenRequest.dart';
 import 'package:flutter_eslabon/services/ApiService.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 import '../constants.dart';
 
 class LoginState with ChangeNotifier {
