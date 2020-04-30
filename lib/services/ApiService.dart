@@ -1,7 +1,5 @@
 //Todas las respuestas desde el api
 import 'dart:io';
-
-import 'package:connectivity/connectivity.dart';
 import 'package:flutter_eslabon/models/Response.dart';
 import 'package:http/http.dart' as http;
 
@@ -38,9 +36,9 @@ class ApiService  {
   //Realiza una peticion post y trae el valor pasado como parametro generico...
    Future<ResponseString> postAsync(String servicePrefix,String controller,String jsonData) async {
 
-   final hayInternet= await Connectivity().checkConnectivity();
+   final hayInternet= await coneccionConInternet();
    
-   if(hayInternet==ConnectivityResult.none){
+   if(!hayInternet){
      final msnReturns='El dipositivo no tiene conexión a internet';
 
         return ResponseString(
@@ -82,5 +80,19 @@ Future<String>  postByTokenAsync<T>(String servicePrefix,String controller,T req
  
    return resp.body;
   }  
+//verificar si tiene acceso a la internet
+Future<bool> coneccionConInternet()  async {
+
+     try {
+          final result = await InternetAddress.lookup('google.com');
+          if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+            return true;
+          }
+          return false;
+        } on SocketException catch (_) {
+        return false;
+        }
+
+  }
 
 }
