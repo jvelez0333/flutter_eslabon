@@ -58,6 +58,7 @@ class LoginState with ChangeNotifier {
       notifyListeners();
 
     } else {
+       _msnInfo=responseAutencation.msn;
       _loggedIn = false;
       notifyListeners();
     }
@@ -66,7 +67,8 @@ class LoginState with ChangeNotifier {
       final myToken=TokenRequest(userName,password);
       final dataJson=myToken.jsonString;
       final api =ApiService();
-
+ 
+ 
      final resp= await api.postAsync('/Api','/Account/CreateToken',dataJson);
 
      if(resp.status==false){

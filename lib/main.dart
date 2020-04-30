@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'helpers/pageTransitions/add_page_transition.dart';
 import 'helpers/pageTransitions/scale_page_route.dart';
-
+//TODO:dar permisos necesarios en el manifiesto de android y ios
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {

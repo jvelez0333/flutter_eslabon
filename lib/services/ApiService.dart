@@ -1,6 +1,7 @@
 //Todas las respuestas desde el api
 import 'dart:io';
 
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter_eslabon/models/Response.dart';
 import 'package:http/http.dart' as http;
 
@@ -71,4 +72,9 @@ Future<String>  postByTokenAsync<T>(String servicePrefix,String controller,T req
  
    return resp.body;
   }  
+
+  bool internetOk(){
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    return true;
+  }
 }
