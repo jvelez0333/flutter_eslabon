@@ -27,6 +27,10 @@ class LoginState with ChangeNotifier {
 
  //informacion que va dando el sistema
   get msnInfo=>_msnInfo;
+  set msnInfo(String value){
+    _msnInfo=value;
+    notifyListeners();
+  }
 
   ResultAutenticateResponse currentUser() => _user;
 

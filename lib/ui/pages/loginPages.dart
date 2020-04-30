@@ -4,6 +4,8 @@ import 'package:flutter_eslabon/helpers/popUp.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
+
+  
   
   LoginPage({this.username});
 
@@ -15,6 +17,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage>  {
 
+
+
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   //mis variables
@@ -24,55 +28,63 @@ class _LoginPageState extends State<LoginPage>  {
   //controladores
   TextEditingController _controllerUsername, _controllerPassword;
 
-  String _msnInfoLogin='';
-
   @override
   void initState() {
       super.initState();
 
-      _controllerUsername = TextEditingController(text: widget?.username ?? "user12");
-      _controllerPassword = TextEditingController(text: "1234562");
+      _controllerUsername = TextEditingController(text: widget?.username ?? "user2");
+      _controllerPassword = TextEditingController(text: "123456");
     
   } 
 
 
   @override
-  Widget build(BuildContext context) {    
+  Widget build(BuildContext context) {
+    
     return Scaffold(
       key: _scaffoldKey,
       body: SafeArea(
         child:Column(
           children: <Widget>[
             Consumer<LoginState>(
-              builder: (BuildContext context, LoginState value, Widget child) {
-                _msnInfoLogin=value.msnInfo;    
-
-          
+              builder: (BuildContext context, LoginState value, Widget child)  {
                 if (value.isLoading()) {
                   return Center(
                     child: Column(children: <Widget>[
-                      CircularProgressIndicator(),  
-                      Text(value.msnInfo)               
+                      CircularProgressIndicator(),
+                      Text(value.msnInfo)
                     ],),
                   );
                 } else {
- 
-                  if(value.msnInfo!='')
-                     showAlertPopup(context, 'Aviso', value.msnInfo);
 
-                  return Column(
-                    children: <Widget>[
-                      child,
-                      Text(value.msnInfo,style: TextStyle(color: Colors.red))
-                    ]
-                  );
+                if(value.msnInfo!='')
+                {
+                                return AlertDialog(
+                                        title: Text('Notificación'),
+                                        content: SingleChildScrollView(
+                                          child: ListBody(
+                                            children: <Widget>[
+                                              Text(value.msnInfo),
+                                            ],
+                                          ),
+                                        ),
+                                        actions: <Widget>[
+                                          FlatButton(
+                                            child: Text('Ok'),
+                                            onPressed: () {
+                                            value.msnInfo='';
+                                            },
+                                          ),
+                                        ],
+                                      );
+                }
+                else{
+                  return child;
+                }                 
+          
                 }
               },
-              child: Column(
-                children: <Widget>[
-                  formularioLoginMdo(context),
-                ],
-              ),
+              child: formularioLoginMdo(context),
             ),            
           ],
           )
@@ -86,8 +98,7 @@ class _LoginPageState extends State<LoginPage>  {
           children: <Widget>[
             Icon(Icons.person, size: 50.0,
             ),
-            Text('Autenticación de Usuario', style:Theme.of(context).textTheme.headline),
-            Text(_msnInfoLogin),
+            Text('Autenticación de Usuario', style:Theme.of(context).textTheme.headline,),
             Form(
               autovalidate: true,
               child: Column( 
@@ -116,7 +127,7 @@ class _LoginPageState extends State<LoginPage>  {
                   ),
                 ),
                 MaterialButton(
-                  child: Text('Entrar'),
+                  child: Text('Entrar2'),
                   onPressed: () {
                         
                         Provider.of<LoginState>(context).login(this._controllerUsername.text,this._controllerPassword.text);
